@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Login - VoteSecure</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="login-page">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo" onclick="window.location.href='/index.html'">
+                    <img src="/assets/logo.png" alt="VoteSecure Logo">
+                    <h1>VoteSecure</h1>
+                </div>
+            </div>
+        </nav>
+
+        <div class="login-container">
+            <div class="login-box">
+                <div class="login-header">
+                    <i class="fas fa-user-shield fa-3x"></i>
+                    <h2>Government Portal</h2>
+                    <p>Authorized personnel only</p>
+                </div>
+                <form id="govLoginForm" class="login-form">
+                    <div class="input-group">
+                        <i class="fas fa-id-badge"></i>
+                        <input type="text" id="govId" required>
+                        <label>Government ID</label>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="govPassword" required>
+                        <label>Password</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                    <button type="button" class="btn btn-outline btn-block" onclick="window.location.href='/index.html'">Back to Home</button>
+                </form>
+                <div class="login-footer">
+                    <p>Forgot credentials? <a href="/index.html#contact">Contact Admin</a></p>
+                    <p class="test-credentials">Test credentials: ID: admin123, Password: gov123</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/auth.js"></script>
+</body>
+</html> 

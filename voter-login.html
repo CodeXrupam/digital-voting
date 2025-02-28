@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Login - VoteSecure</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="login-page">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo" onclick="window.location.href='/index.html'">
+                    <img src="/assets/logo.png" alt="VoteSecure Logo">
+                    <h1>VoteSecure</h1>
+                </div>
+            </div>
+        </nav>
+
+        <div class="login-container">
+            <div class="login-box">
+                <div class="login-header">
+                    <i class="fas fa-user-circle fa-3x"></i>
+                    <h2>Voter Login</h2>
+                    <p>Please enter your credentials to proceed with voting</p>
+                </div>
+                <form id="voterLoginForm" class="login-form">
+                    <div class="input-group">
+                        <i class="fas fa-id-card"></i>
+                        <input type="text" id="aadharNo" required pattern="[0-9]{12}">
+                        <label>Aadhaar Number</label>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-address-card"></i>
+                        <input type="text" id="voterId" required>
+                        <label>Voter ID</label>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" required>
+                        <label>Password</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Login to Vote</button>
+                    <button type="button" class="btn btn-outline btn-block" onclick="window.location.href='/index.html'">Back to Home</button>
+                </form>
+                <div class="login-footer">
+                    <p>Having trouble logging in? <a href="/index.html#contact">Contact Support</a></p>
+                    <p class="test-credentials">Test credentials: Aadhaar: 123456789012, Voter ID: ABC1234567, Password: voter123</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/auth.js"></script>
+</body>
+</html> 

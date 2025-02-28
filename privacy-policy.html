@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - VoteSecure</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/privacy-policy.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers/privacyController.js"></script>
+</head>
+<body ng-app="voteSecureApp" ng-controller="PrivacyController">
+    <!-- Navigation -->
+    <nav class="simple-navbar">
+        <div class="simple-nav-container">
+            <div class="logo" onclick="window.location.href='index.html'">
+                <img src="assets/logo.png" alt="VoteSecure Logo">
+                <h1>VoteSecure</h1>
+            </div>
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                Back to Home
+            </a>
+        </div>
+    </nav>
+
+    <main class="privacy-policy-page">
+        <header class="privacy-header">
+            <div class="header-content">
+                <div class="icon-container">
+                    <i class="fas fa-shield-alt privacy-icon"></i>
+                </div>
+                <h1>Privacy Policy</h1>
+                <span class="update-date">Last updated: {{lastUpdated}}</span>
+                <p class="description">
+                    At VoteSecure, we take your privacy seriously. Learn how we collect, use, 
+                    and protect your personal information to ensure a secure voting experience.
+                </p>
+            </div>
+        </header>
+
+        <section class="policy-content">
+            <div class="policy-section" ng-repeat="policy in policies">
+                <h2>{{policy.title}}</h2>
+                <p>{{policy.description}}</p>
+                <ul>
+                    <li ng-repeat="item in policy.items">{{item}}</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/common.js"></script>
+    <script src="js/privacy-policy.js"></script>
+</body>
+</html> 

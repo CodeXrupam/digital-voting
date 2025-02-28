@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cast Your Vote - VoteSecure</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="voting-page">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="assets/logo.png" alt="VoteSecure Logo">
+                    <h1>VoteSecure</h1>
+                </div>
+                <div class="user-info">
+                    <span id="voterName">Welcome, Voter</span>
+                    <div class="user-controls">
+                        <button class="btn btn-outline profile-btn" onclick="showProfile()">
+                            <i class="fas fa-user-circle"></i>
+                            Profile
+                        </button>
+                        <button class="btn btn-outline" onclick="handleLogout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="voting-main">
+            <div class="voting-container">
+                <h2>Cast Your Vote</h2>
+                <p class="voting-instruction">Select one party to cast your vote. This action cannot be undone.</p>
+                
+                <div class="party-grid" id="partyGrid">
+                    <!-- Party cards will be dynamically loaded here -->
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/voting.js"></script>
+</body>
+</html> 

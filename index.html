@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoteSecure - Digital Voting Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="assets/logo.png" alt="VoteSecure Logo">
+                <h1>VoteSecure</h1>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links">
+                <a href="#home" class="active">Home</a>
+                <a href="how-it-works.html">How it Works</a>
+                <a href="#features">Features</a>
+                <a href="#security">Security</a>
+                <a href="#faq">FAQs</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="nav-buttons">
+                <a href="voter-login.html" class="btn btn-outline">Voter Login</a>
+                <a href="gov-login.html" class="btn btn-primary">Government Portal</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login/Auth Modals -->
+    <div class="modal hidden" id="loginModal">
+        <div class="modal-content">
+            <!-- Login form will be injected here -->
+        </div>
+    </div>
+
+    <div class="modal hidden" id="otpModal">
+        <div class="modal-content">
+            <!-- OTP verification form will be injected here -->
+        </div>
+    </div>
+
+    <div class="modal hidden" id="biometricModal">
+        <div class="modal-content">
+            <!-- Biometric verification UI will be injected here -->
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Secure Digital Voting</h1>
+                <h2>Your Vote, Your Voice</h2>
+                <p>Revolutionizing the electoral process with seamless and secure automated voter verification</p>
+                <div class="hero-buttons">
+                    <a href="voter-login.html" class="btn btn-primary btn-large">
+                        <i class="fas fa-vote-yea"></i> Vote Now
+                    </a>
+                    <a href="gov-login.html" class="btn btn-outline btn-large">
+                        <i class="fas fa-user-shield"></i> Admin Login
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">10M+</span>
+                        <span class="stat-label">Registered Voters</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">99.9%</span>
+                        <span class="stat-label">Success Rate</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Secure</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="how-it-works">
+            <h2>How It Works</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3>1. Voter Verification</h3>
+                    <p>Login securely using your Aadhaar and Voter ID credentials</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-vote-yea"></i>
+                    </div>
+                    <h3>2. Cast Your Vote</h3>
+                    <p>Select your preferred candidate from the available options</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>3. Secure Recording</h3>
+                    <p>Your vote is encrypted and securely recorded in the system</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>4. Confirmation</h3>
+                    <p>Receive instant confirmation of your successful vote</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <h2>Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-fingerprint"></i>
+                    <h3>Biometric Authentication</h3>
+                    <p>Multi-factor authentication ensures only legitimate voters can participate</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-lock"></i>
+                    <h3>End-to-End Encryption</h3>
+                    <p>Advanced encryption protects your vote at every step</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Real-time Results</h3>
+                    <p>Instant vote counting with transparent result display</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-universal-access"></i>
+                    <h3>Accessibility</h3>
+                    <p>User-friendly interface accessible to all voters</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Security Section -->
+        <section id="security" class="security">
+            <div class="video-background">
+                <video autoplay muted loop>
+                    <source src="/digital-voting/assets/video/Reflect Notes.webm" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="lock-container">
+                    <img src="/digital-voting/assets/video/lock.png" alt="Lock" class="lock-image">
+                    <img src="/digital-voting/assets/video/bar.png" alt="Bar" class="bar-image">
+                </div>
+            </div>
+            <div class="security-overlay">
+                <h2>Security Measures</h2>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How does voter authentication work?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Authentication is done through a secure three-step process using Aadhaar, Voter ID, and OTP verification.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Can my vote be changed after submission?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, once your vote is cast and confirmed, it cannot be changed or tampered with.</p>
+                    </div>
+                </div>
+                <!-- Add more FAQ items -->
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <h2>Contact Us</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <p>+91 1800-XXX-XXXX</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <p>support@votesecure.gov.in</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>Election Commission of India, New Delhi</p>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="input-group">
+                        <input type="text" id="name" required>
+                        <label>Full Name</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="email" required>
+                        <label>Email Address</label>
+                    </div>
+                    <div class="input-group">
+                        <textarea id="message" required></textarea>
+                        <label>Your Message</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="assets/logo.png" alt="VoteSecure Logo">
+                <h3>VoteSecure</h3>
+            </div>
+            <div class="footer-links">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="#home">Home</a>
+                    <a href="how-it-works.html">How it Works</a>
+                    <a href="#features">Features</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Help & Support</h4>
+                    <a href="#faq">FAQs</a>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms-of-service.html">Terms of Service</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect With Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 VoteSecure. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Voting Interface (Hidden by default) -->
+    <div class="voting-interface hidden" id="votingInterface">
+        <!-- Voting interface will be injected here -->
+    </div>
+
+    <!-- Admin Dashboard (Hidden by default) -->
+    <div class="admin-dashboard hidden" id="adminDashboard">
+        <!-- Admin dashboard will be injected here -->
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
