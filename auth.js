@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (validateVoter(aadhar, voterId, password)) {
                 sessionStorage.setItem('currentVoter', aadhar);
-                window.location.href = '/voting.html';
+                window.location.href = 'voting.html';
             } else {
                 showError('Invalid credentials or you have already voted');
             }
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (validateGovUser(govId, password)) {
                 sessionStorage.setItem('adminId', govId);
-                window.location.href = '/admin-dashboard.html';
+                window.location.href = 'admin-dashboard.html';
             } else {
                 showError('Invalid government credentials');
             }
@@ -75,4 +75,4 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(errorDiv);
         setTimeout(() => errorDiv.remove(), 3000);
     }
-}); 
+});

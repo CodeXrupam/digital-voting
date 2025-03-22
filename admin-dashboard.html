@@ -28,13 +28,13 @@
                 <div class="admin-grid">
                     <!-- Session Control Card -->
                     <div class="admin-card">
-                        <h3><i class="fas fa-clock"></i> Session Control</h3>
+                        <h3><i class="fas fa-cog"></i> Session Controls</h3>
                         <div class="session-controls">
                             <button class="btn btn-primary" onclick="startSession()">
-                                <i class="fas fa-play"></i> Start New Session
+                                <i class="fas fa-play"></i> Start Session
                             </button>
                             <button class="btn btn-danger" onclick="endSession()">
-                                <i class="fas fa-stop"></i> End Current Session
+                                <i class="fas fa-stop"></i> End Session
                             </button>
                         </div>
                     </div>
@@ -44,20 +44,20 @@
                         <h3><i class="fas fa-plus-circle"></i> Add New Party</h3>
                         <form id="addPartyForm" class="add-party-form">
                             <div class="input-group">
-                                <input type="text" id="partyName" required>
-                                <label>Party Name</label>
+                                <label for="partyName">Party Name</label>
+                                <input type="text" id="partyName" name="partyName" placeholder="Enter party name" required>
                             </div>
                             <div class="input-group">
-                                <input type="text" id="candidateName" required>
-                                <label>Candidate Name</label>
+                                <label for="candidateName">Candidate Name</label>
+                                <input type="text" id="candidateName" name="candidateName" placeholder="Enter candidate name" required>
                             </div>
                             <div class="input-group">
-                                <input type="text" id="partySymbol" required>
-                                <label>Party Symbol</label>
+                                <label for="partySymbol">Party Symbol</label>
+                                <input type="text" id="partySymbol" name="partySymbol" placeholder="Enter party symbol" required>
                             </div>
                             <div class="input-group">
-                                <input type="file" id="partyLogo" accept="image/*" required>
-                                <label>Party Logo</label>
+                                <label for="partyLogo">Party Logo</label>
+                                <input type="file" id="partyLogo" name="partyLogo" accept="image/*" required>
                             </div>
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-plus"></i> Add Party
@@ -84,6 +84,6 @@
             </div>
         </main>
     </div>
-    <script src="js/admin.js"></script>
+    <script src="admin.js"></script>
 </body>
 </html> 

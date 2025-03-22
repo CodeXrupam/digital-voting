@@ -42,105 +42,162 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Start voting session
 window.startSession = function() {
+    console.log('Starting new session...');
     const parties = JSON.parse(localStorage.getItem('parties')) || [];
     
     if (parties.length === 0) {
-        // Show warning modal if no parties exist
-        const warningModal = document.createElement('div');
-        warningModal.className = 'modal';
-        warningModal.innerHTML = `
-            <div class="modal-content warning-modal">
-                <div class="modal-header">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <h2>No Parties Added</h2>
-                </div>
-                <div class="modal-body">
-                    <p>Please add at least one party before starting the voting session.</p>
-                    <button class="btn btn-primary" onclick="closeModal(this)">
-                        <i class="fas fa-check"></i> Okay
-                    </button>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(warningModal);
+        alert('Please add at least one party before starting the voting session.');
         return;
     }
 
     if (confirm('Are you sure you want to start a new voting session? This will clear all previous votes.')) {
-        localStorage.setItem('sessionActive', 'true');
-        localStorage.removeItem('votes'); // Clear previous votes
-        showSuccess('New voting session started successfully');
-        loadVotingStats();
-        loadPartyList();
+        try {
+            localStorage.setItem('sessionActive', 'true');
+            localStorage.removeItem('votes'); // Clear previous votes
+            console.log('Session started successfully');
+            showSuccess('New voting session started successfully');
+            loadVotingStats();
+            loadPartyList();
+        } catch (error) {
+            console.error('Error starting session:', error);
+            alert('Error starting session. Please try again.');
+        }
     }
 };
 
 // End voting session
 window.endSession = function() {
+    console.log('Ending session...');
     if (confirm('Are you sure you want to end the current voting session? This will lock all votes.')) {
-        localStorage.setItem('sessionActive', 'false');
-        
-        // Clear parties when session ends
-        localStorage.removeItem('parties');
-        
-        // Show cleanup modal
-        const cleanupModal = document.createElement('div');
-        cleanupModal.className = 'modal';
-        cleanupModal.innerHTML = `
-            <div class="modal-content cleanup-modal">
-                <div class="modal-header">
-                    <h2><i class="fas fa-check-circle"></i> Session Ended Successfully</h2>
-                </div>
-                <div class="modal-body">
-                    <p>Session has ended and party data has been cleared.</p>
-                    <div class="cleanup-options">
-                        <button class="btn btn-outline" onclick="downloadResults()">
-                            <i class="fas fa-download"></i> Download Results
-                        </button>
-                        <button class="btn btn-outline" onclick="closeAndRefresh(this)">
-                            <i class="fas fa-sync"></i> Refresh Dashboard
-                        </button>
+        try {
+            localStorage.setItem('sessionActive', 'false');
+            console.log('Session ended successfully');
+            
+            // Show results before clearing
+            const votes = JSON.parse(localStorage.getItem('votes')) || {};
+            const totalVotes = Object.keys(votes).length;
+            
+            // Show cleanup modal with results
+            const cleanupModal = document.createElement('div');
+            cleanupModal.className = 'modal';
+            cleanupModal.innerHTML = `
+                <div class="modal-content cleanup-modal">
+                    <div class="modal-header">
+                        <h2><i class="fas fa-check-circle"></i> Session Ended Successfully</h2>
+                    </div>
+                    <div class="modal-body">
+                        <p>Session has ended. Total votes cast: ${totalVotes}</p>
+                        <div class="cleanup-options">
+                            <button class="btn btn-outline" onclick="downloadResults()">
+                                <i class="fas fa-download"></i> Download Results
+                            </button>
+                            <button class="btn btn-outline" onclick="closeAndRefresh(this)">
+                                <i class="fas fa-sync"></i> Refresh Dashboard
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        `;
-        document.body.appendChild(cleanupModal);
-        
-        // Refresh displays
-        loadPartyList();
-        loadVotingStats();
+            `;
+            document.body.appendChild(cleanupModal);
+            
+            // Refresh displays
+            loadPartyList();
+            loadVotingStats();
+        } catch (error) {
+            console.error('Error ending session:', error);
+            alert('Error ending session. Please try again.');
+        }
     }
 };
 
 // Handle adding new party
 function handleAddParty(e) {
     e.preventDefault();
-    const parties = JSON.parse(localStorage.getItem('parties')) || [];
+    console.log('Adding new party...');
     
-    // Get file input
+    // Get form values
+    const partyName = document.getElementById('partyName').value.trim();
+    const candidateName = document.getElementById('candidateName').value.trim();
+    const partySymbol = document.getElementById('partySymbol').value.trim();
     const fileInput = document.getElementById('partyLogo');
-    const file = fileInput.files[0];
+    
+    console.log('Form values:', {
+        partyName,
+        candidateName,
+        partySymbol,
+        hasFile: fileInput.files.length > 0
+    });
+    
+    // Validate inputs
+    if (!partyName || !candidateName || !partySymbol) {
+        alert('Please fill in all fields');
+        return;
+    }
+    
+    // Get existing parties or initialize empty array
+    let parties = [];
+    try {
+        const existingParties = localStorage.getItem('parties');
+        console.log('Existing parties data:', existingParties);
+        parties = existingParties ? JSON.parse(existingParties) : [];
+        
+        // Check for duplicate party names
+        if (parties.some(p => p.name.toLowerCase() === partyName.toLowerCase())) {
+            alert('A party with this name already exists');
+            return;
+        }
+    } catch (error) {
+        console.error('Error parsing existing parties:', error);
+        parties = [];
+    }
+    
+    // Handle logo file
+    let logoUrl = 'assets/default-party.png';
+    if (fileInput.files && fileInput.files[0]) {
+        try {
+            logoUrl = URL.createObjectURL(fileInput.files[0]);
+            console.log('Created logo URL:', logoUrl);
+        } catch (error) {
+            console.error('Error creating URL for logo:', error);
+        }
+    }
     
     // Create new party object
     const newParty = {
         id: Date.now().toString(),
-        name: document.getElementById('partyName').value,
-        candidate: document.getElementById('candidateName').value,
-        symbol: document.getElementById('partySymbol').value,
-        logo: file ? URL.createObjectURL(file) : 'assets/default-party.png'
+        name: partyName,
+        candidate: candidateName,
+        symbol: partySymbol,
+        logo: logoUrl
     };
-
-    // Add to parties array
-    parties.push(newParty);
-    localStorage.setItem('parties', JSON.stringify(parties));
     
-    // Refresh displays
-    loadPartyList();
-    loadVotingStats();
+    console.log('New party object:', newParty);
     
-    // Reset form and show success message
-    e.target.reset();
-    showSuccess('Party added successfully');
+    // Add to parties array and save
+    try {
+        parties.push(newParty);
+        localStorage.setItem('parties', JSON.stringify(parties));
+        console.log('Parties saved successfully. Total parties:', parties.length);
+        
+        // Start session if this is the first party
+        if (parties.length === 1 && localStorage.getItem('sessionActive') !== 'true') {
+            localStorage.setItem('sessionActive', 'true');
+            console.log('Session automatically started for first party');
+            showSuccess('Party added and voting session started');
+        } else {
+            showSuccess('Party added successfully');
+        }
+        
+        // Refresh displays
+        loadPartyList();
+        loadVotingStats();
+        
+        // Reset form
+        e.target.reset();
+    } catch (error) {
+        console.error('Error saving party:', error);
+        alert('Error saving party. Please try again.');
+    }
 }
 
 // Load voting statistics

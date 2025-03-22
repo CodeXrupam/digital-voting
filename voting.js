@@ -69,26 +69,46 @@ function checkSessionStatus() {
 setInterval(checkSessionStatus, 2000); // Check every 2 seconds
 
 function goToHome() {
-    // Get the current path
-    const currentPath = window.location.pathname;
-    
-    // If we're in a subdirectory (like /html/ or /voting/)
-    if (currentPath.includes('/html/') || currentPath.includes('/voting/')) {
-        window.location.href = '../index.html';
-    } else if (currentPath.includes('index.html')) {
-        // If already on index page, do nothing
-        return;
-    } else {
-        // If we're in the root directory
-        window.location.href = 'index.html';
-    }
+    // Simplify navigation to always go to index.html in the same directory
+    window.location.href = 'index.html';
 }
 
 function loadParties() {
-    const parties = JSON.parse(localStorage.getItem('parties')) || [];
+    console.log('Loading parties...');
     const partyGrid = document.getElementById('partyGrid');
     
-    if (parties.length === 0) {
+    if (!partyGrid) {
+        console.error('Party grid element not found');
+        return;
+    }
+    
+    // Check session status
+    const isSessionActive = localStorage.getItem('sessionActive') === 'true';
+    if (!isSessionActive) {
+        console.log('Session is not active');
+        partyGrid.innerHTML = `
+            <div class="no-parties-message">
+                <i class="fas fa-clock"></i>
+                <p>Voting session is not active. Please wait for the admin to start the session.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    // Get parties from localStorage
+    let parties = [];
+    try {
+        const partiesData = localStorage.getItem('parties');
+        console.log('Raw parties data:', partiesData);
+        parties = partiesData ? JSON.parse(partiesData) : [];
+    } catch (error) {
+        console.error('Error parsing parties data:', error);
+        parties = [];
+    }
+    
+    // Check if there are any parties
+    if (!parties || parties.length === 0) {
+        console.log('No parties found');
         partyGrid.innerHTML = `
             <div class="no-parties-message">
                 <i class="fas fa-info-circle"></i>
@@ -98,6 +118,8 @@ function loadParties() {
         return;
     }
     
+    // Display parties
+    console.log('Displaying parties:', parties);
     partyGrid.innerHTML = parties.map(party => `
         <div class="party-card" data-party="${party.id}">
             <img src="${party.logo}" alt="${party.name}" onerror="this.src='assets/default-party.png'">
@@ -368,4 +390,4 @@ window.handleLogout = function() {
         // Go to home using the same navigation logic
         goToHome();
     }
-}; 
+};
